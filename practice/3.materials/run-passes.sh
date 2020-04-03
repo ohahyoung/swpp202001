@@ -27,14 +27,14 @@ if [ "$1" != "run" ]; then
   CXXFLAGS="$CXXFLAGS -std=c++17"
   set -e
 
-  $CXX $ISYSROOT $CXXFLAGS $LDFLAGS $LIBS hello.cpp -o libHello$EXT -shared
-  $CXX $ISYSROOT $CXXFLAGS $LDFLAGS $LIBS dump.cpp -o libDump$EXT -shared
+  $CXX $ISYSROOT $CXXFLAGS $LDFLAGS $LIBS hello.cpp -o ./libHello$EXT -shared
+  $CXX $ISYSROOT $CXXFLAGS $LDFLAGS $LIBS dump.cpp -o ./libDump$EXT -shared
 
 fi
 
 if [ "$1" != "build" ]; then
   $2/opt -disable-output \
-      -load-pass-plugin=libHello$EXT \
-      -load-pass-plugin=libDump$EXT \
+      -load-pass-plugin=./libHello$EXT \
+      -load-pass-plugin=./libDump$EXT \
       -passes="hello,dump" foo.ll
 fi
